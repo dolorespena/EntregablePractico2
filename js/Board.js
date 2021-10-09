@@ -4,20 +4,34 @@ export default class Board {
     constructor (width, height){
         this.height = height;
         this.width = width;
-        this.cells = new Array(width).fill(new Array(height)); //Construyo la matriz vacía
+        this.cells = this.buildMatrix();//Construyo la matriz vacía
     }
 
-    draw(ctx) {
-        ctx.fillStyle = "dodgerblue";
+    getCells(){
+        return this.cells;
+    }
 
-        for (let i = 0; i < this.cells.length; i++){
-            //console.log(i);
-            for(let j = 0; j < this.cells[i].length; j++){
-                //console.log("celda actual es" + i + "," + j);
-                this.cells[i][j] = new Cell(i,j);
-                //console.log(this.cells[i][j]);
+    getCell(x,y){
+        return this.cells[x][y];
+    }
+
+    buildMatrix() {
+        let matrix = new Array(this.height);
+        for (let i = 0; i < matrix.length; i++){
+            matrix[i] = new Array(this.width);
+            for(let j = 0; j < matrix[i].length; j++){
+                matrix[i][j] = new Cell(i*100,j*100);
             }
-        };
-        //console.log(this.cells[0][0]);
+        }
+        return matrix;
+    }
+
+    draw(ctx,canvas){
+        ctx.clearRect(0,0,canvas.width,canvas.height)
+        this.cells.forEach(rows => {
+            rows.forEach(cell => {
+                cell.print(ctx);
+                })
+        });
     }
 }
