@@ -2,8 +2,8 @@ import Cell from "./Cell.js";
 
 export default class Board {
     constructor (width, height, ctx){
-        this.height = height;
-        this.width = width;
+        this.height = height; //cantidad de fichas en largo
+        this.width = width; //cantidad de fichas en ancho
         this.ctx = ctx;
         this.cells = this.buildMatrix(); //Matrix of Cells
         //this.throwZone = new throwZone();
