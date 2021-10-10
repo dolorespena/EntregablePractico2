@@ -11,13 +11,14 @@ spanDiscs.innerHTML = rangeDiscs.value + " en línea"; //Seteo por defecto en 4 
 
 let discsToWin = Number(rangeDiscs.value); 
 
-let board = new Board(discsToWin + 2 , discsToWin + 3);
-board.draw(ctx,canvas);
+let board = new Board(discsToWin + 2 , discsToWin + 3, ctx);
+board.draw(canvas);
+console.log(board.getCells())
 
 
 rangeDiscs.addEventListener("change", ()=> {
     spanDiscs.innerHTML = rangeDiscs.value + " en línea";
     discsToWin = Number(rangeDiscs.value); 
-    board = new Board(discsToWin + 2 , discsToWin + 3);
-    board.draw(ctx, canvas);
+    board = new Board(discsToWin + 2 , discsToWin + 3, ctx);
+    board.draw(canvas);
 })
