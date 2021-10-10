@@ -6,6 +6,7 @@ export default class Board {
         this.width = width;
         this.ctx = ctx;
         this.cells = this.buildMatrix(); //Matrix of Cells
+        //this.throwZone = new throwZone();
     }
 
     getCells(){
