@@ -10,6 +10,7 @@ export default class Board {
         this.spaceY = 100; //Distancia del punto 0 del canvas;
         this.cells = this.buildMatrix(); //Matrix of Cells
         this.throwZone = new throwZone(this.spaceX, 0, this.height * 80, this.spaceY, this.ctx);
+        this.freePlaces = this.getFreePlaces(); // Devuelve un arreglo indices disponible;
     }
 
     getCells(){
@@ -44,7 +45,28 @@ export default class Board {
         });
     }
 
-    insertDisc(){
-        
+    getFreePlaces(){
+        let freePlaces = [];
+        this.getCells().forEach(column => {
+            freePlaces.push(this.getFreePlace(column));
+        })
+        return freePlaces;
+    }
+
+    getFreePlace(column){
+        for (let i = column.length-1; i>=0; i--){
+            if (column[i].getDisc().fill == "white"){
+                return i;
+            }
+        }
+        return null;
+    }
+
+    insertDisc(fill, trowX){
+        let trowY = this.freePlaces[trowX]
+        this.getCell(trowX, trowY).getDisc().setFill(fill);
+        console.log(this.getCell(trowX, trowY));
+        this.freePlaces = this.getFreePlaces();
+        console.log("lugares disponibles", this.freePlaces);
     }
 }

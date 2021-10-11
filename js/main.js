@@ -28,8 +28,6 @@ grippeableDiscs.push(cellP1, cellP2);
 
 let board = new Board(discsToWin + 2 , discsToWin + 3, ctx); //Creación del tablero
 board.draw();
-console.log(board.getCells())
-
 
 rangeDiscs.addEventListener("change", ()=> {
     let cellP1 = new Cell(100,250, 'red', ctx);
@@ -50,14 +48,11 @@ function onMouseDown(e){
     isMouseDown = true;
 
     if(lastClickedFigure != null){
-        lastClickedFigure.setResaltado(false);
         lastClickedFigure = null;
     }
 
     let clickFig = findClickedFigure(e.layerX, e.layerY);
-    console.log("figura seleccionada", clickFig);
     if (clickFig != null){
-        clickFig.setResaltado(true);
         lastClickedFigure = clickFig;
 
     }
@@ -66,21 +61,22 @@ function onMouseDown(e){
 function onMouseMove(e){
     if (isMouseDown && lastClickedFigure != null){
         lastClickedFigure.setPosition(e.layerX, e.layerY);
-        console.log(lastClickedFigure);
-        clearCanvas();
-        board.draw();
-        cellP1.print(ctx);
-        cellP2.print(ctx);
+        drawGameElements();
         lastClickedFigure.draw();
     }
 }
 
 function onMouseUp(e){
     isMouseDown = false;
-    console.log(e.layerX, e.layerY);
+    drawGameElements();
 
     if(board.getThrowZone().isPointerInside(e.layerX, e.layerY)){ // si la ficha está en la zona de tiro
-         
+        let color = lastClickedFigure.fill;
+        let throwX = board.getThrowZone().positionTrow(e.layerX);
+        console.log("color", color);
+        console.log("posTiro", throwX);
+        board.insertDisc(color,throwX);
+        drawGameElements();
     }
 }
 
@@ -98,6 +94,13 @@ function findClickedFigure(x, y){
         }
     });
     return new Disc(clickedFigure.posX,clickedFigure.posY,clickedFigure.radius,clickedFigure.fill,clickedFigure.ctx);
+}
+
+function drawGameElements(){
+    clearCanvas();
+    board.draw();
+    cellP1.print(ctx);
+    cellP2.print(ctx);
 }
 
 canvas.addEventListener('mousedown', onMouseDown, false);

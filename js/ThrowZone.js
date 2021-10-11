@@ -16,4 +16,8 @@ export default class throwZone {
         this.ctx.fillStyle = "grey";
         this.ctx.fillRect(this.startX, this.startY, this.width, this.heigth);
     }
+
+    positionTrow(x){ //Me devuelve la posicion de la columna donde tirar la ficha [0..board.length-1]
+        return Math.floor((x-this.startX)/80);
+    }
 }
