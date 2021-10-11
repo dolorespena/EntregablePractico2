@@ -11,6 +11,9 @@ spanDiscs.innerHTML = rangeDiscs.value + " en línea"; //Seteo por defecto en 4 
 
 let discsToWin = Number(rangeDiscs.value); 
 
+let isMouseDown = false;
+let lastClickedFigure = null;
+
 let board = new Board(discsToWin + 2 , discsToWin + 3, ctx);
 board.draw();
 console.log(board.getCells())
@@ -40,13 +43,15 @@ function onMouseDown(e){
         lastClickedFigure = clickFig;
 
     }
-    drawDiscs();
+    //lastClickedFigure.draw();
 }
 
 function onMouseMove(e){
     if (isMouseDown && lastClickedFigure != null){
         lastClickedFigure.setPosition(e.layerX, e.layerY);
-        drawDiscs();
+        clearCanvas();
+        board.draw();
+        lastClickedFigure.draw();
     }
 }
 
@@ -55,16 +60,23 @@ function onMouseUp(){
 }
 
 function clearCanvas(){
-    ctx.fillStyle = '#F8F8FF';
+    ctx.fillStyle = 'white';
     ctx.fillRect(0,0, canvas.width, canvas.height);
 }
 
 function findClickedFigure(x, y){
-    for (let i = 0; i< discs.length; i++)
-        if (discs[i].isPointerInside(x, y))
-            return discs[i];
+    let clickedFigure = null;
+    board.getCells().forEach(rows => {
+        rows.forEach(cell => {
+            if (cell.getDisc().isPointerInside(x,y)){
+                console.log(cell.getDisc());
+                clickedFigure = cell.getDisc();
+            }
+        })
+    });
+    return clickedFigure;
 }
 
-// canvas.addEventListener('mousedown', onMouseDown, false);
-// canvas.addEventListener('mouseup', onMouseUp, false);
-// canvas.addEventListener('mousemove', onMouseMove, false);
+canvas.addEventListener('mousedown', onMouseDown, false);
+canvas.addEventListener('mouseup', onMouseUp, false);
+canvas.addEventListener('mousemove', onMouseMove, false);
