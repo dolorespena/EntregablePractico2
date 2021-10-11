@@ -1,6 +1,7 @@
 "use strict";
 
 import Board from "./Board.js";
+import Cell from "./Cell.js";
 
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
@@ -9,22 +10,37 @@ let rangeDiscs = document.getElementById("rangeDiscs"); //El selector de cantida
 let spanDiscs = document.getElementById("showCantDiscs"); //Donde se muestra la cantidad de fichas seleccionadas
 spanDiscs.innerHTML = rangeDiscs.value + " en línea"; //Seteo por defecto en 4 línea
 
-let discsToWin = Number(rangeDiscs.value); 
+let discsToWin = Number(rangeDiscs.value);  // Cantidad de fichas consecutivas para ganar
 
 let isMouseDown = false;
 let lastClickedFigure = null;
 
-let board = new Board(discsToWin + 2 , discsToWin + 3, ctx);
+
+let cellP1 = new Cell(100,250, 'red', ctx);
+cellP1.print(ctx);
+
+let cellP2 = new Cell(100,410, 'yellow', ctx);
+cellP2.print(ctx);
+
+let grippeableDiscs = [] ; //listado de fichas que se pueden agarrar
+grippeableDiscs.push(cellP1, cellP2);
+
+let board = new Board(discsToWin + 2 , discsToWin + 3, ctx); //Creación del tablero
 board.draw();
 console.log(board.getCells())
 
 
 rangeDiscs.addEventListener("change", ()=> {
+    let cellP1 = new Cell(100,250, 'red', ctx);
+    let cellP2 = new Cell(100,410, 'yellow', ctx);
+
     spanDiscs.innerHTML = rangeDiscs.value + " en línea";
     discsToWin = Number(rangeDiscs.value); 
     board = new Board(discsToWin + 2 , discsToWin + 3, ctx);
     clearCanvas();
     board.draw();
+    cellP1.print(ctx);
+    cellP2.print(ctx);
 })
 
 // Selección de ficha
@@ -43,7 +59,6 @@ function onMouseDown(e){
         lastClickedFigure = clickFig;
 
     }
-    //lastClickedFigure.draw();
 }
 
 function onMouseMove(e){
@@ -51,12 +66,19 @@ function onMouseMove(e){
         lastClickedFigure.setPosition(e.layerX, e.layerY);
         clearCanvas();
         board.draw();
+        cellP1.print(ctx);
+        cellP2.print(ctx);
         lastClickedFigure.draw();
     }
 }
 
-function onMouseUp(){
+function onMouseUp(e){
     isMouseDown = false;
+    console.log(e.layerX, e.layerY);
+
+    if(board.getThrowZone().isPointerInside(e.layerX, e.layerY)){
+        console.log("Está en la zona de tiro");  
+    }
 }
 
 function clearCanvas(){
@@ -66,13 +88,11 @@ function clearCanvas(){
 
 function findClickedFigure(x, y){
     let clickedFigure = null;
-    board.getCells().forEach(rows => {
-        rows.forEach(cell => {
-            if (cell.getDisc().isPointerInside(x,y)){
-                console.log(cell.getDisc());
-                clickedFigure = cell.getDisc();
-            }
-        })
+    grippeableDiscs.forEach(cell => {
+        if (cell.getDisc().isPointerInside(x,y)){
+            console.log(cell.getDisc());
+            clickedFigure = cell.getDisc();
+        }
     });
     return clickedFigure;
 }
