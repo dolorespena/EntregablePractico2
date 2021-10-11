@@ -12,4 +12,8 @@ export default class Cell {
         ctx.fillRect(this.x, this.y, 100, 100);
         this.disc.draw();
     }
+
+    getDisc(){
+        return this.disc;
+    }
 }

@@ -28,8 +28,7 @@ export default class Board {
         return matrix;
     }
 
-    draw(canvas){
-        this.ctx.clearRect(0,0,canvas.width,canvas.height)
+    draw(){
         this.cells.forEach(rows => {
             rows.forEach(cell => {
                 cell.print(this.ctx);
