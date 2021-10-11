@@ -9,6 +9,10 @@ export default class Disc {
         this.ctx = context;
     }
 
+    getAttributes(){
+        return { posX: this.posX, posY: this.posY, radius: this.radius, fill: this.fill, ctx: this.ctx};
+    }
+
     setFill (fill){
         this.fill = fill;
     }

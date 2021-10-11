@@ -2,6 +2,7 @@
 
 import Board from "./Board.js";
 import Cell from "./Cell.js";
+import Disc from "./Disc.js";
 
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
@@ -54,6 +55,7 @@ function onMouseDown(e){
     }
 
     let clickFig = findClickedFigure(e.layerX, e.layerY);
+    console.log("figura seleccionada", clickFig);
     if (clickFig != null){
         clickFig.setResaltado(true);
         lastClickedFigure = clickFig;
@@ -64,6 +66,7 @@ function onMouseDown(e){
 function onMouseMove(e){
     if (isMouseDown && lastClickedFigure != null){
         lastClickedFigure.setPosition(e.layerX, e.layerY);
+        console.log(lastClickedFigure);
         clearCanvas();
         board.draw();
         cellP1.print(ctx);
@@ -76,8 +79,8 @@ function onMouseUp(e){
     isMouseDown = false;
     console.log(e.layerX, e.layerY);
 
-    if(board.getThrowZone().isPointerInside(e.layerX, e.layerY)){
-        console.log("Está en la zona de tiro");  
+    if(board.getThrowZone().isPointerInside(e.layerX, e.layerY)){ // si la ficha está en la zona de tiro
+         
     }
 }
 
@@ -91,10 +94,10 @@ function findClickedFigure(x, y){
     grippeableDiscs.forEach(cell => {
         if (cell.getDisc().isPointerInside(x,y)){
             console.log(cell.getDisc());
-            clickedFigure = cell.getDisc();
+            clickedFigure = cell.getDisc().getAttributes();
         }
     });
-    return clickedFigure;
+    return new Disc(clickedFigure.posX,clickedFigure.posY,clickedFigure.radius,clickedFigure.fill,clickedFigure.ctx);
 }
 
 canvas.addEventListener('mousedown', onMouseDown, false);
