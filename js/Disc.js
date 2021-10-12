@@ -4,8 +4,6 @@ export default class Disc {
         this.posY = posY;
         this.radius = radius;
         this.fill = fill;
-        this.resaltado = false;
-        this.resaltadoEstilo = 'red';
         this.ctx = context;
     }
 
@@ -46,12 +44,6 @@ export default class Disc {
         this.ctx.beginPath();
         this.ctx.arc(this.posX,this.posY,this.radius,0,2 * Math.PI);
         this.ctx.fill();
-
-        if (this.resaltado == true){
-            this.ctx.strokeStyle = this.resaltadoEstilo;
-            this.ctx.lineWidth = 5;
-            this.ctx.stroke();
-        }
         this.ctx.closePath();
     }
 
@@ -61,10 +53,6 @@ export default class Disc {
 
     setRadius(radius){
         this.radius = radius;
-    }
-
-    setResaltado(resaltado){
-        this.resaltado = resaltado;
     }
 
     isPointerInside(x,y){
