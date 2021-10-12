@@ -16,18 +16,15 @@ let discsToWin = Number(rangeDiscs.value);  // Cantidad de fichas consecutivas p
 let isMouseDown = false;
 let lastClickedFigure = null;
 
-
+let board = new Board(discsToWin + 2 , discsToWin + 3, ctx); //Creación del tablero
 let cellP1 = new Cell(100,250, 'red', ctx);
-cellP1.print(ctx);
-
 let cellP2 = new Cell(100,410, 'yellow', ctx);
-cellP2.print(ctx);
+
+drawGameElements();
 
 let grippeableDiscs = [] ; //listado de fichas que se pueden agarrar
 grippeableDiscs.push(cellP1, cellP2);
 
-let board = new Board(discsToWin + 2 , discsToWin + 3, ctx); //Creación del tablero
-board.draw();
 
 rangeDiscs.addEventListener("change", ()=> {
     let cellP1 = new Cell(100,250, 'red', ctx);
