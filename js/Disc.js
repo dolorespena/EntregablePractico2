@@ -8,7 +8,7 @@ export default class Disc {
     }
 
     getAttributes(){
-        return { posX: this.posX, posY: this.posY, radius: this.radius, fill: this.fill, ctx: this.ctx};
+        return [this.posX, this.posY, this.radius, this.fill, this.ctx];
     }
 
     setFill (fill){

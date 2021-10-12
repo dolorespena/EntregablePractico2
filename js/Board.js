@@ -65,8 +65,6 @@ export default class Board {
     insertDisc(fill, trowX){
         let trowY = this.freePlaces[trowX]
         this.getCell(trowX, trowY).getDisc().setFill(fill);
-        console.log(this.getCell(trowX, trowY));
         this.freePlaces = this.getFreePlaces();
-        console.log("lugares disponibles", this.freePlaces);
     }
 }

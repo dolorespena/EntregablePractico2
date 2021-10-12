@@ -36,10 +36,7 @@ rangeDiscs.addEventListener("change", ()=> {
     spanDiscs.innerHTML = rangeDiscs.value + " en línea";
     discsToWin = Number(rangeDiscs.value); 
     board = new Board(discsToWin + 2 , discsToWin + 3, ctx);
-    clearCanvas();
-    board.draw();
-    cellP1.print(ctx);
-    cellP2.print(ctx);
+    drawGameElements();
 })
 
 // Selección de ficha
@@ -54,7 +51,6 @@ function onMouseDown(e){
     let clickFig = findClickedFigure(e.layerX, e.layerY);
     if (clickFig != null){
         lastClickedFigure = clickFig;
-
     }
 }
 
@@ -73,8 +69,6 @@ function onMouseUp(e){
     if(board.getThrowZone().isPointerInside(e.layerX, e.layerY)){ // si la ficha está en la zona de tiro
         let color = lastClickedFigure.fill;
         let throwX = board.getThrowZone().positionTrow(e.layerX);
-        console.log("color", color);
-        console.log("posTiro", throwX);
         board.insertDisc(color,throwX);
         drawGameElements();
     }
@@ -89,11 +83,11 @@ function findClickedFigure(x, y){
     let clickedFigure = null;
     grippeableDiscs.forEach(cell => {
         if (cell.getDisc().isPointerInside(x,y)){
-            console.log(cell.getDisc());
-            clickedFigure = cell.getDisc().getAttributes();
+            let attributes = cell.getDisc().getAttributes();
+            clickedFigure = new Disc(...attributes)
         }
     });
-    return new Disc(clickedFigure.posX,clickedFigure.posY,clickedFigure.radius,clickedFigure.fill,clickedFigure.ctx);
+    return clickedFigure;
 }
 
 function drawGameElements(){
