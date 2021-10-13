@@ -1,3 +1,37 @@
-html{
-    background-color: white;
+body{
+    background-image: url('./discs/fondo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+p{
+    color: white;
+    margin: 20px;
+    font-family: 'Luckiest Guy', cursive;
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: 70px;
+    text-shadow: 5px 5px 2px rgb(61, 61, 61);
+    display: flex;
+    justify-content: center;
+}
+canvas#canvas{
+    margin:  0 0 0 60px;
+    display: flex;
+}
+input #rangeDiscs{
+    margin: auto;
+}
+#discsList img{
+    width: 80px;
+    height: 80px;
+    margin: 15px;
+    
+}
+#discsList{
+    display: flex;
+    justify-content: center;
+}
+input{
+    margin: 30px;
 }

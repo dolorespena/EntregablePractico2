@@ -13,7 +13,7 @@ export default class throwZone {
     }
 
     draw(){
-        this.ctx.fillStyle = "grey";
+        this.ctx.fillStyle = "#5C94FC";
         this.ctx.fillRect(this.startX, this.startY, this.width, this.heigth);
     }
 

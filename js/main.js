@@ -77,7 +77,7 @@ function onMouseUp(e){
 }
 
 function clearCanvas(){
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = '#5C94FC';
     ctx.fillRect(0,0, canvas.width, canvas.height);
 }
 
