@@ -1,14 +1,15 @@
 export default class Disc {
-    constructor (posX, posY,radius,fill,context){
+    constructor (posX, posY,radius, img, context){
         this.posX = posX;
         this.posY = posY;
         this.radius = radius;
-        this.fill = fill;
+        this.img = img;
+        this.fill = 'white';
         this.ctx = context;
     }
 
     getAttributes(){
-        return [this.posX, this.posY, this.radius, this.fill, this.ctx];
+        return [this.posX, this.posY, this.radius, this.img, this.ctx];
     }
 
     setFill (fill){
@@ -39,13 +40,41 @@ export default class Disc {
         return this.fill;
     }
 
+    isEmpty(){
+        return this.IsEmpty;
+    }
+
+    setIsEmpty(empty){
+        this.IsEmpty = empty;
+    }
+
+    getImg(){
+        return this.img;
+    }
+
+    setImg(img){
+        this.img = img;
+    }
+
+
+
     draw(){
-        this.ctx.fillStyle = this.fill;
         this.ctx.beginPath();
-        this.ctx.arc(this.posX,this.posY,this.radius,0,2 * Math.PI);
-        this.ctx.fill();
+
+        if(this.img != null){
+            this.ctx.drawImage(this.img, this.posX - this.radius, this.posY - this.radius, this.radius * 2, this.radius * 2);
+            this.ctx.arc(this.posX, this.posY, this.radius, 0,2 * Math.PI);
+        }
+        else{
+            this.ctx.fillStyle = this.fill;
+            this.ctx.arc(this.posX, this.posY, this.radius, 0,2 * Math.PI);
+            this.ctx.fill();
+        }
         this.ctx.closePath();
     }
+    
+
+
 
     getRadius(){
         return this.radius;

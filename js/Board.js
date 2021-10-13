@@ -30,7 +30,7 @@ export default class Board {
         for (let i = 0; i < matrix.length; i++){
             matrix[i] = new Array(this.width);
             for(let j = 0; j < matrix[i].length; j++){
-                matrix[i][j] = new Cell(i*80+this.spaceX,j*80+this.spaceY, 'white', this.ctx);
+                matrix[i][j] = new Cell(i*80+this.spaceX,j*80+this.spaceY, true, null, this.ctx);
             }
         }
         return matrix;
@@ -55,17 +55,18 @@ export default class Board {
 
     getFreePlace(column){
         for (let i = column.length-1; i>=0; i--){
-            if (column[i].getDisc().fill == "white"){
+            if (column[i].isEmpty){
                 return i;
             }
         }
         return null;
     }
 
-    insertDisc(fill, trowX){
+    insertDisc(img, trowX){
         let trowY = this.freePlaces[trowX]
         if(trowY != null){
-            this.getCell(trowX, trowY).getDisc().setFill(fill);
+            this.getCell(trowX, trowY).getDisc().setImg(img);
+            this.getCell(trowX, trowY).setIsEmpty(false);
             this.freePlaces = this.getFreePlaces();
         }
         

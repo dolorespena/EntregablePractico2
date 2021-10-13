@@ -16,9 +16,14 @@ let discsToWin = Number(rangeDiscs.value);  // Cantidad de fichas consecutivas p
 let isMouseDown = false;
 let lastClickedFigure = null;
 
+let imagesDisc = document.getElementsByTagName("img");
+
+let random1 = Math.floor( Math.random() * imagesDisc.length);
+let random2 = Math.floor( Math.random() * imagesDisc.length);
+
 let board = new Board(discsToWin + 2 , discsToWin + 3, ctx); //Creación del tablero
-let cellP1 = new Cell(100,250, 'red', ctx);
-let cellP2 = new Cell(100,410, 'yellow', ctx);
+let cellP1 = new Cell(100,250, false, imagesDisc.item(random1), ctx);
+let cellP2 = new Cell(100,410, false, imagesDisc.item(random2), ctx);
 
 drawGameElements();
 
@@ -64,9 +69,9 @@ function onMouseUp(e){
     drawGameElements();
 
     if(board.getThrowZone().isPointerInside(e.layerX, e.layerY)){ // si la ficha está en la zona de tiro
-        let color = lastClickedFigure.fill;
+        let img = lastClickedFigure.getImg();
         let throwX = board.getThrowZone().positionTrow(e.layerX);
-        board.insertDisc(color,throwX);
+        board.insertDisc(img,throwX);
         drawGameElements();
     }
 }
