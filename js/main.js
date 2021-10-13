@@ -7,6 +7,8 @@ import Disc from "./Disc.js";
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 
+let btnStart = document.getElementById("starGame");
+
 let rangeDiscs = document.getElementById("rangeDiscs"); //El selector de cantidad de fichas
 let spanDiscs = document.getElementById("showCantDiscs"); //Donde se muestra la cantidad de fichas seleccionadas
 spanDiscs.innerHTML = rangeDiscs.value + " en línea"; //Seteo por defecto en 4 línea
@@ -21,6 +23,7 @@ let imagesDisc = document.getElementsByTagName("img");
 let random1 = Math.floor( Math.random() * imagesDisc.length);
 let random2 = Math.floor( Math.random() * imagesDisc.length);
 
+
 let board = new Board(discsToWin + 2 , discsToWin + 3, ctx); //Creación del tablero
 let cellP1 = new Cell(100,250, false, imagesDisc.item(random1), ctx);
 let cellP2 = new Cell(100,410, false, imagesDisc.item(random2), ctx);
@@ -32,8 +35,6 @@ grippeableDiscs.push(cellP1, cellP2);
 
 
 rangeDiscs.addEventListener("change", ()=> {
-    let cellP1 = new Cell(100,250, 'red', ctx);
-    let cellP2 = new Cell(100,410, 'yellow', ctx);
 
     spanDiscs.innerHTML = rangeDiscs.value + " en línea";
     discsToWin = Number(rangeDiscs.value); 
@@ -41,39 +42,46 @@ rangeDiscs.addEventListener("change", ()=> {
     drawGameElements();
 })
 
+
+
 // Selección de ficha
+function startGame(){
 
-function onMouseDown(e){
-    isMouseDown = true;
+    function onMouseDown(e){
+        isMouseDown = true;
 
-    if(lastClickedFigure != null){
-        lastClickedFigure = null;
+        if(lastClickedFigure != null){ 
+            lastClickedFigure = null;
+        }
+
+        let clickFig = findClickedFigure(e.layerX, e.layerY);
+        if (clickFig != null){
+            lastClickedFigure = clickFig;
+        }
     }
 
-    let clickFig = findClickedFigure(e.layerX, e.layerY);
-    if (clickFig != null){
-        lastClickedFigure = clickFig;
+    function onMouseMove(e){
+        if (isMouseDown && lastClickedFigure != null){
+            lastClickedFigure.setPosition(e.layerX, e.layerY);
+            drawGameElements();
+            lastClickedFigure.draw();
+        }
     }
-}
 
-function onMouseMove(e){
-    if (isMouseDown && lastClickedFigure != null){
-        lastClickedFigure.setPosition(e.layerX, e.layerY);
+    function onMouseUp(e){
+        isMouseDown = false;
         drawGameElements();
-        lastClickedFigure.draw();
-    }
-}
 
-function onMouseUp(e){
-    isMouseDown = false;
-    drawGameElements();
-
-    if(board.getThrowZone().isPointerInside(e.layerX, e.layerY)){ // si la ficha está en la zona de tiro
-        let img = lastClickedFigure.getImg();
-        let throwX = board.getThrowZone().positionTrow(e.layerX);
-        board.insertDisc(img,throwX);
-        drawGameElements();
+        if(board.getThrowZone().isPointerInside(e.layerX, e.layerY)){ // si la ficha está en la zona de tiro
+            let img = lastClickedFigure.getImg();
+            let throwX = board.getThrowZone().positionTrow(e.layerX);
+            board.insertDisc(img,throwX);
+            drawGameElements();
+        }
     }
+    canvas.addEventListener('mousedown', onMouseDown, false);
+    canvas.addEventListener('mouseup', onMouseUp, false);
+    canvas.addEventListener('mousemove', onMouseMove, false);
 }
 
 function clearCanvas(){
@@ -99,6 +107,4 @@ function drawGameElements(){
     cellP2.print(ctx);
 }
 
-canvas.addEventListener('mousedown', onMouseDown, false);
-canvas.addEventListener('mouseup', onMouseUp, false);
-canvas.addEventListener('mousemove', onMouseMove, false);
+btnStart.addEventListener("click", startGame);

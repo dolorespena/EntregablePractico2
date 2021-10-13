@@ -4,7 +4,7 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
-p{
+#showCantDiscs{
     color: white;
     margin: 20px;
     font-family: 'Luckiest Guy', cursive;
@@ -19,19 +19,47 @@ canvas#canvas{
     margin:  0 0 0 60px;
     display: flex;
 }
-input #rangeDiscs{
-    margin: auto;
-}
+
 #discsList img{
     width: 80px;
     height: 80px;
     margin: 15px;
-    
 }
 #discsList{
     display: flex;
     justify-content: center;
+    align-items: center;
 }
-input{
-    margin: 30px;
+input {
+    background: white;
+    margin: 15px;
+    display: flex;
+    align-content: center;
+    
+}
+#starGame{
+    color: #2A66D4;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 130px;
+    height: 40px;
+    background-color: white;
+    border: 3px solid #00A800;
+    border-radius: 20px;
+}
+#range{
+    margin: 20px auto;
+    width: 270px;
+    background-color: #00A800;
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+}
+#range p{
+    color: white;
+    text-shadow: 2px 2px 2px rgb(61, 61, 61);
+    font-weight: bold;
+    font-size: 14px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

@@ -9,7 +9,7 @@ export default class Cell {
     }
 
     print(ctx){
-        ctx.fillStyle = "dodgerblue";
+        ctx.fillStyle = "#2A66D4";
         ctx.fillRect(this.x, this.y, 80, 80);
         this.disc.draw();
     }

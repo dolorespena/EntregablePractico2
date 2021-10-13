@@ -57,7 +57,6 @@ export default class Disc {
     }
 
 
-
     draw(){
         this.ctx.beginPath();
 

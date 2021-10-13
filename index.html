@@ -13,6 +13,7 @@
 </head>
 <body>
     <p id="showCantDiscs"></p>
+
     
     <div id="discsList">
         <img src="./discs/Mario2.png" id="mario">
@@ -21,11 +22,14 @@
         <img src="./discs/FungusG2.png" id="fungusG">
         <img src="./discs/FungusR2.png" id="fungusR">
         <img src="./discs/Star2.png" id="Star2">
+        <button type="submit" id="starGame">Iniciar Juego</button>
     </div>
 
     <canvas id="canvas" width="1100" height="750"></canvas>
-    <input type="range" min="4" max="6" value="4" id="rangeDiscs">
-
+    <div id="range">
+        <p>Rango</p>
+        <input type="range" min="4" max="6" value="4" id="rangeDiscs">
+    </div>
     <script type= "module" src="js/main.js"></script>
 </body>
 </html>
