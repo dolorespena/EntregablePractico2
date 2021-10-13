@@ -19,7 +19,6 @@ canvas#canvas{
     margin:  0 0 0 60px;
     display: flex;
 }
-
 #discsList img{
     width: 80px;
     height: 80px;
@@ -36,6 +35,14 @@ input {
     display: flex;
     align-content: center;
     
+}
+.borderP1{
+    border: 3px solid #00A800;
+    border-radius: 50%;
+}
+.borderP2{
+    border: 3px solid #2A66D4;
+    border-radius: 50%;
 }
 #starGame{
     color: #2A66D4;

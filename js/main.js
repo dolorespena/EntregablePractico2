@@ -18,7 +18,23 @@ let discsToWin = Number(rangeDiscs.value);  // Cantidad de fichas consecutivas p
 let isMouseDown = false;
 let lastClickedFigure = null;
 
-let imagesDisc = document.getElementsByTagName("img");
+let imagesDisc = document.querySelectorAll("img"); // Devuelve una lista de img
+console.log(imagesDisc)
+
+imagesDisc.forEach(image => {
+    image.addEventListener("click", (event)=>{
+        let selectImg = event.target;
+        if(selectImg.classList.contains('borderP1'))
+            selectImg.classList.add('borderP2');
+        else
+            selectImg.classList.add('borderP1');
+    })
+})
+/* imagesDisc.addEventListener("click", (event)=>{
+    console.log(event.target.tagName);
+
+
+}) */
 
 let random1 = Math.floor( Math.random() * imagesDisc.length);
 let random2 = Math.floor( Math.random() * imagesDisc.length);
@@ -45,40 +61,40 @@ rangeDiscs.addEventListener("change", ()=> {
 
 
 // Selección de ficha
-function startGame(){
+function onMouseDown(e){
+    isMouseDown = true;
 
-    function onMouseDown(e){
-        isMouseDown = true;
-
-        if(lastClickedFigure != null){ 
-            lastClickedFigure = null;
-        }
-
-        let clickFig = findClickedFigure(e.layerX, e.layerY);
-        if (clickFig != null){
-            lastClickedFigure = clickFig;
-        }
+    if(lastClickedFigure != null){ 
+        lastClickedFigure = null;
     }
 
-    function onMouseMove(e){
-        if (isMouseDown && lastClickedFigure != null){
-            lastClickedFigure.setPosition(e.layerX, e.layerY);
-            drawGameElements();
-            lastClickedFigure.draw();
-        }
+    let clickFig = findClickedFigure(e.layerX, e.layerY);
+    if (clickFig != null){
+        lastClickedFigure = clickFig;
     }
+}
 
-    function onMouseUp(e){
-        isMouseDown = false;
+function onMouseMove(e){
+    if (isMouseDown && lastClickedFigure != null){
+        lastClickedFigure.setPosition(e.layerX, e.layerY);
         drawGameElements();
-
-        if(board.getThrowZone().isPointerInside(e.layerX, e.layerY)){ // si la ficha está en la zona de tiro
-            let img = lastClickedFigure.getImg();
-            let throwX = board.getThrowZone().positionTrow(e.layerX);
-            board.insertDisc(img,throwX);
-            drawGameElements();
-        }
+        lastClickedFigure.draw();
     }
+}
+
+function onMouseUp(e){
+    isMouseDown = false;
+    drawGameElements();
+
+    if(board.getThrowZone().isPointerInside(e.layerX, e.layerY)){ // si la ficha está en la zona de tiro
+        let img = lastClickedFigure.getImg();
+        let throwX = board.getThrowZone().positionTrow(e.layerX);
+        board.insertDisc(img,throwX);
+        drawGameElements();
+    }
+}
+
+function startGame(){
     canvas.addEventListener('mousedown', onMouseDown, false);
     canvas.addEventListener('mouseup', onMouseUp, false);
     canvas.addEventListener('mousemove', onMouseMove, false);
