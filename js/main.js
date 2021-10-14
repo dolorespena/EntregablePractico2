@@ -116,7 +116,7 @@ function onMouseUp(e){
     isMouseDown = false;
     drawGameElements();
 
-    if(board.getThrowZone().isPointerInside(e.layerX, e.layerY)){ // si la ficha está en la zona de tiro
+    if(board.getThrowZone().isPointerInside(e.layerX, e.layerY) && lastClickedFigure != null){ // si la ficha está en la zona de tiro
         let img = lastClickedFigure.getImg();
         let throwX = board.getThrowZone().positionTrow(e.layerX);
         board.insertDisc(img,throwX);
