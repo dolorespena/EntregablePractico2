@@ -114,6 +114,7 @@ function startGame(){
     canvas.addEventListener('mousedown', onMouseDown, false);
     canvas.addEventListener('mouseup', onMouseUp, false);
     canvas.addEventListener('mousemove', onMouseMove, false);
+    timeDown()
 }
 
 function restartGame(){
@@ -162,6 +163,20 @@ function drawGameElements(){
     board.draw();
     cellP1.print(ctx);
     cellP2.print(ctx);
+}
+
+function timeDown(){
+    let span = document.getElementById("countdown");
+    let segundos = 30;
+    function run(){
+        if( segundos == 0){
+            console.log("Termminó el tiempo")
+        }else{
+            segundos--;
+            span.innerHTML = segundos;
+        }
+    }
+    setInterval(run, 1000);
 }
 
 btnStart.addEventListener("click", startGame);
