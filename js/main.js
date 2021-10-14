@@ -29,7 +29,6 @@ drawGameElements();
 let grippeableDiscs = [] ; //listado de fichas que se pueden agarrar
 
 let imagesDisc = document.querySelectorAll("img"); // Devuelve una lista de img
-console.log(imagesDisc)
 
 imagesDisc.forEach(image => {
     image.addEventListener("click", setPlayer);
@@ -67,28 +66,7 @@ function removeListenerAllButtons(){
     })
 }
 
-rangeDiscs.addEventListener("change", ()=> {
-
-    spanDiscs.innerHTML = rangeDiscs.value + " en línea";
-    discsToWin = Number(rangeDiscs.value); 
-    board = new Board(discsToWin + 2 , discsToWin + 3, ctx);
-
-    cellP1 = new Cell(100,250, true, null, ctx);
-    cellP2 = new Cell(100,410, true, null, ctx);
-
-    grippeableDiscs = [];
-
-    imagesDisc.forEach(image => {
-        image.addEventListener("click", setPlayer);
-        image.classList.remove('borderP1', 'borderP2');
-    })
-
-    msgSelectPlayer.innerHTML = 'Elegir jugador 1:';
-
-    drawGameElements();
-})
-
-
+rangeDiscs.addEventListener("change", restartGame)
 
 // Selección de ficha
 function onMouseDown(e){
@@ -121,6 +99,10 @@ function onMouseUp(e){
         let throwX = board.getThrowZone().positionTrow(e.layerX);
         board.insertDisc(img,throwX);
         drawGameElements();
+        if(isWinner(img)){
+            alert('Hay ganador!');
+            restartGame();
+        }
     }
 }
 
@@ -132,6 +114,31 @@ function startGame(){
     canvas.addEventListener('mousedown', onMouseDown, false);
     canvas.addEventListener('mouseup', onMouseUp, false);
     canvas.addEventListener('mousemove', onMouseMove, false);
+}
+
+function restartGame(){
+    spanDiscs.innerHTML = rangeDiscs.value + " en línea";
+    discsToWin = Number(rangeDiscs.value); 
+    board = new Board(discsToWin + 2 , discsToWin + 3, ctx);
+
+    cellP1 = new Cell(100,250, true, null, ctx);
+    cellP2 = new Cell(100,410, true, null, ctx);
+
+    grippeableDiscs = [];
+
+    imagesDisc.forEach(image => {
+        image.addEventListener("click", setPlayer);
+        image.classList.remove('borderP1', 'borderP2');
+    })
+
+    msgSelectPlayer.innerHTML = 'Elegir jugador 1:';
+
+    drawGameElements();
+}
+
+function isWinner(img){
+    console.log(img.id);
+    return false;
 }
 
 function clearCanvas(){
