@@ -71,4 +71,43 @@ export default class Board {
         }
         
     }
+
+    isFourInLine(player, discsToWin){
+        return this.connect4Vertical(player,discsToWin);
+        //|| connect4Horizontal(player,discsToWin) ||connect4Diagonal1(player,discsToWin) ||connect4Diagonal2(player,discsToWin));   
+    }
+
+    connect4Vertical(player, discsToWin){
+
+        let count = 0;
+        let hasWinner = false;
+        this.getCells().forEach(column => {
+        
+            column.forEach(cell => {
+                if (cell.getDisc().getImg() != null && cell.getDisc().getImg().id == player){
+                    count ++;
+                    console.log(count);
+                }
+                else{
+                    count = 0;
+                }
+                if (count == discsToWin){
+                    hasWinner = true;
+                }
+            })
+        })
+        return hasWinner;
+    }
+
+    connect4Horizontal(player){
+        return false;
+    }
+    
+    connect4Diagonal1(player){
+        return false;
+    }
+
+    connect4Diagonal2(player){
+        return false;
+    }
 }

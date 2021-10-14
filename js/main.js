@@ -10,6 +10,7 @@ let ctx = canvas.getContext("2d");
 let btnStart = document.getElementById("startGame");
 
 let msgSelectPlayer = document.getElementById("selectPlayer");
+let msgWinPlayer = document.getElementById("winPlayer"); //Mensaje jugador ganador
 let rangeDiscs = document.getElementById("rangeDiscs"); //El selector de cantidad de fichas
 let spanDiscs = document.getElementById("showCantDiscs"); //Donde se muestra la cantidad de fichas seleccionadas
 spanDiscs.innerHTML = rangeDiscs.value + " en línea"; //Seteo por defecto en 4 línea
@@ -99,10 +100,12 @@ function onMouseUp(e){
         let throwX = board.getThrowZone().positionTrow(e.layerX);
         board.insertDisc(img,throwX);
         drawGameElements();
-        timeDown();
-        if(isWinner(img)){
-            alert('Hay ganador!');
-            restartGame();
+        
+        let player = img.id;
+        if(isWinner(player, discsToWin)){
+            msgWinPlayer.innerHTML = `${player} Wins!`;
+            grippeableDiscs = [];
+            //restartGame();
         }
     }
 }
@@ -138,9 +141,8 @@ function restartGame(){
     drawGameElements();
 }
 
-function isWinner(img){
-    console.log(img.id);
-    return false;
+function isWinner(player, discsToWin){
+    return board.isFourInLine(player, discsToWin);
 }
 
 function clearCanvas(){
@@ -168,7 +170,7 @@ function drawGameElements(){
 
 function timeDown(){
     let span = document.getElementById("countdown");
-    let segundos = 30;
+    let segundos = 10;
     let timeInterval = setInterval(run, 1000);
 
     function run(){
@@ -181,8 +183,6 @@ function timeDown(){
             span.innerHTML = segundos;
         }
     }
-    
-    
 }
 
 btnStart.addEventListener("click", startGame);
