@@ -9,7 +9,7 @@ export default class Board {
         this.spaceX = 300; //Distancia del punto 0 del canvas;
         this.spaceY = 100; //Distancia del punto 0 del canvas;
         this.cells = this.buildMatrix(); //Matrix of Cells
-        this.throwZone = new throwZone(this.spaceX, 0, this.height * 80, this.spaceY, this.ctx);
+        this.throwZone = new throwZone(this.spaceX, 0, this.height * 70, this.spaceY, this.ctx);
         this.freePlaces = this.getFreePlaces(); // Devuelve un arreglo indices disponible;
     }
 
@@ -30,7 +30,7 @@ export default class Board {
         for (let i = 0; i < matrix.length; i++){
             matrix[i] = new Array(this.width);
             for(let j = 0; j < matrix[i].length; j++){
-                matrix[i][j] = new Cell(i*80+this.spaceX,j*80+this.spaceY, true, null, this.ctx);
+                matrix[i][j] = new Cell(i*70+this.spaceX,j*70+this.spaceY, true, null, this.ctx);
             }
         }
         return matrix;

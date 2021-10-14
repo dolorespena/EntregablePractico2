@@ -4,30 +4,36 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
-#showCantDiscs{
+#showCantDiscs, span{
     color: white;
-    margin: 20px;
+    margin: 15px;
     font-family: 'Luckiest Guy', cursive;
     text-transform: uppercase;
     font-weight: bolder;
-    font-size: 70px;
+    font-size: 50px;
     text-shadow: 5px 5px 2px rgb(61, 61, 61);
     display: flex;
     justify-content: center;
 }
 canvas#canvas{
-    margin:  0 0 0 60px;
+    margin:  0 auto;
     display: flex;
 }
 #discsList img{
-    width: 80px;
-    height: 80px;
-    margin: 15px;
+    width: 60px;
+    height: 60px;
+    margin: 10px 15px;
 }
 #discsList{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+#discsList p{
+    color: white;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 18px;
+    text-shadow: 2px 2px 2px rgb(61, 61, 61);
 }
 input {
     background: white;
@@ -45,14 +51,13 @@ input {
     border-radius: 50%;
 }
 #startGame{
-    color: #2A66D4;
-    font-weight: bold;
+    color: white;
     font-size: 14px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-shadow: 2px 2px 2px rgb(32, 32, 32);
+    font-family: 'Luckiest Guy', cursive;
     width: 130px;
     height: 40px;
-    background-color: white;
-    border: 3px solid #00A800;
+    background-color: #00A800;
     border-radius: 20px;
 }
 #range{
@@ -65,10 +70,9 @@ input {
 }
 #range p{
     color: white;
-    text-shadow: 2px 2px 2px rgb(61, 61, 61);
-    font-weight: bold;
+    text-shadow: 2px 2px 2px rgb(32, 32, 32);
     font-size: 14px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Luckiest Guy', cursive;
 }
 footer{
     width: 300px;
@@ -86,11 +90,12 @@ footer p{
     margin:2px;
     font-size: 14px;
 }
-
 #startGame{
     display:none;
 }
-
 #startGame.show{
     display:block; /* P.S: Use `!important` if missing `#content` (selector specificity). */
+}
+span{
+    font-size: 35px;
 }

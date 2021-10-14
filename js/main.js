@@ -99,6 +99,7 @@ function onMouseUp(e){
         let throwX = board.getThrowZone().positionTrow(e.layerX);
         board.insertDisc(img,throwX);
         drawGameElements();
+        timeDown();
         if(isWinner(img)){
             alert('Hay ganador!');
             restartGame();
@@ -114,7 +115,7 @@ function startGame(){
     canvas.addEventListener('mousedown', onMouseDown, false);
     canvas.addEventListener('mouseup', onMouseUp, false);
     canvas.addEventListener('mousemove', onMouseMove, false);
-    timeDown()
+    timeDown();
 }
 
 function restartGame(){
@@ -168,15 +169,20 @@ function drawGameElements(){
 function timeDown(){
     let span = document.getElementById("countdown");
     let segundos = 30;
+    let timeInterval = setInterval(run, 1000);
+
     function run(){
         if( segundos == 0){
-            console.log("Termminó el tiempo")
+            clearInterval(timeInterval);
+        }else if(cellP1.onMouseUp || cellP2.onMouseUp){
+            clearInterval(timeInterval);
         }else{
             segundos--;
             span.innerHTML = segundos;
         }
     }
-    setInterval(run, 1000);
+    
+    
 }
 
 btnStart.addEventListener("click", startGame);
