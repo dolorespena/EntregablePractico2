@@ -123,6 +123,8 @@ function startGame(){
 }
 
 function restartGame(){
+    
+    btnRestart.classList.toggle('show');
     spanDiscs.innerHTML = rangeDiscs.value + " en línea";
     discsToWin = Number(rangeDiscs.value); 
     board = new Board(discsToWin + 2 , discsToWin + 3, ctx);
