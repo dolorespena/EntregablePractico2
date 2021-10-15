@@ -72,15 +72,9 @@ export default class Board {
         
     }
 
-<<<<<<< HEAD
     isFourInLine(player, discsToWin){
         return this.connect4Vertical(player,discsToWin) || this.connect4Horizontal(player,discsToWin) ||
             this.connect4Diagonal1(player,discsToWin) ||this.connect4Diagonal2(player,discsToWin);   
-=======
-    isFourInLine(player, discsToWin){ // reglas de juego
-        return this.connect4Vertical(player,discsToWin) || this.connect4Horizontal(player,discsToWin);
-        // ||connect4Diagonal1(player,discsToWin) ||connect4Diagonal2(player,discsToWin));   
->>>>>>> f3a06bd3b62d0e01b872641c4d3cc3fe8af609b8
     }
 
     connect4Vertical(player, discsToWin){
