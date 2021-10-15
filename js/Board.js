@@ -25,7 +25,7 @@ export default class Board {
         return this.throwZone;
     }
 
-    buildMatrix() {
+    buildMatrix() { //onstructor de matriz
         let matrix = new Array(this.height);
         for (let i = 0; i < matrix.length; i++){
             matrix[i] = new Array(this.width);
@@ -45,7 +45,7 @@ export default class Board {
         });
     }
 
-    getFreePlaces(){
+    getFreePlaces(){ // obtiene los lugares vacios
         let freePlaces = [];
         this.getCells().forEach(column => {
             freePlaces.push(this.getFreePlace(column));
@@ -53,7 +53,7 @@ export default class Board {
         return freePlaces;
     }
 
-    getFreePlace(column){
+    getFreePlace(column){ // obtiene los lugares vacios por columna
         for (let i = column.length-1; i>=0; i--){
             if (column[i].isEmpty){
                 return i;
@@ -62,7 +62,7 @@ export default class Board {
         return null;
     }
 
-    insertDisc(img, trowX){
+    insertDisc(img, trowX){ // inserta la ficha dentro de la matriz
         let trowY = this.freePlaces[trowX]
         if(trowY != null){
             this.getCell(trowX, trowY).getDisc().setImg(img);
@@ -72,7 +72,7 @@ export default class Board {
         
     }
 
-    isFourInLine(player, discsToWin){
+    isFourInLine(player, discsToWin){ // reglas de juego
         return this.connect4Vertical(player,discsToWin) || this.connect4Horizontal(player,discsToWin);
         // ||connect4Diagonal1(player,discsToWin) ||connect4Diagonal2(player,discsToWin));   
     }
