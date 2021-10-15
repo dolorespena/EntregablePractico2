@@ -90,10 +90,10 @@ footer p{
     margin:2px;
     font-size: 14px;
 }
-#startGame{
+#startGame, #restartGame{
     display:none;
 }
-#startGame.show{
+#startGame.show, #restartGame.show{
     display:block; /* P.S: Use `!important` if missing `#content` (selector specificity). */
 }
 span{

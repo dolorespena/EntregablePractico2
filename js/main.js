@@ -8,6 +8,7 @@ let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 
 let btnStart = document.getElementById("startGame");
+let btnRestart = document.getElementById("restartGame");
 
 let msgSelectPlayer = document.getElementById("selectPlayer");
 let msgWinPlayer = document.getElementById("winPlayer"); //Mensaje jugador ganador
@@ -105,7 +106,7 @@ function onMouseUp(e){
         if(isWinner(player, discsToWin)){
             msgWinPlayer.innerHTML = `${player} Wins!`;
             grippeableDiscs = [];
-            //restartGame();
+            btnRestart.classList.toggle('show');
         }
     }
 }
@@ -186,3 +187,4 @@ function timeDown(){
 }
 
 btnStart.addEventListener("click", startGame);
+btnRestart.addEventListener("click", restartGame);
