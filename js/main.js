@@ -172,9 +172,11 @@ function drawGameElements(){
     cellP2.print(ctx);
 }
 
+
+
 function timeDown(){
     let span = document.getElementById("countdown");
-    let segundos = 10;
+    let segundos = 300;
     let timeInterval = setInterval(run, 1000);
 
     function run(){
@@ -184,10 +186,11 @@ function timeDown(){
             clearInterval(timeInterval);
         }else{
             segundos--;
-            span.innerHTML = segundos;
+            span.innerHTML =  segundos;
         }
     }
 }
+
 
 btnStart.addEventListener("click", startGame);
 btnRestart.addEventListener("click", restartGame);
