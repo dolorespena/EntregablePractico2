@@ -189,15 +189,18 @@ function drawGameElements(){
     cellP1.print(ctx);
     cellP2.print(ctx);
 }
-
 //tiempo
 function timeDown(){
-    let segundos = 300;
+    let segundos = 100;
+    
     let timeInterval = setInterval(run, 1000);
 
     function run(){
         if( segundos == 0){
             clearInterval(timeInterval);
+            alert("Se terminó el tiempo");
+            restartGame();
+            
         }else {
             segundos--;
             countdown.innerHTML =  segundos;
