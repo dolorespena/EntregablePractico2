@@ -73,8 +73,8 @@ export default class Board {
     }
 
     isFourInLine(player, discsToWin){
-        return this.connect4Vertical(player,discsToWin) || this.connect4Horizontal(player,discsToWin);
-        // ||connect4Diagonal1(player,discsToWin) ||connect4Diagonal2(player,discsToWin));   
+        return this.connect4Vertical(player,discsToWin) || this.connect4Horizontal(player,discsToWin) ||
+            this.connect4Diagonal1(player,discsToWin) ||this.connect4Diagonal2(player,discsToWin);   
     }
 
     connect4Vertical(player, discsToWin){
@@ -82,7 +82,7 @@ export default class Board {
         let count = 0;
         let hasWinner = false;
         this.getCells().forEach(column => {
-        
+            count = 0;
             column.forEach(cell => {
                 if (cell.getDisc().getImg() != null && cell.getDisc().getImg().id == player){
                     count ++;
@@ -103,8 +103,6 @@ export default class Board {
         let count = 0;
         let hasWinner = false;
 
-        console.log(this.cells)
-
         for(let i = 0; i < this.cells[0].length; i ++){
             count = 0;
             for (let j = this.cells.length -1; j >= 0 ; j--){
@@ -123,11 +121,90 @@ export default class Board {
         return hasWinner;
     }
     
-    connect4Diagonal1(player){
-        return false;
+    connect4Diagonal1(player, discsToWin){
+        let diagonals = this.getDiagonals1();
+
+        let count = 0;
+        let hasWinner = false;
+        diagonals.forEach(column => {
+            count = 0;
+            column.forEach(cell => {
+                if (cell.getDisc().getImg() != null && cell.getDisc().getImg().id == player){
+                    count ++;
+                }
+                else{
+                    count = 0;
+                }
+                if (count == discsToWin){
+                    hasWinner = true;
+                }
+            })
+        })
+        return hasWinner;
     }
 
-    connect4Diagonal2(player){
-        return false;
+    connect4Diagonal2(player, discsToWin){
+        let diagonals = this.getDiagonals2();
+
+        let count = 0;
+        let hasWinner = false;
+        diagonals.forEach(column => {
+            count = 0;
+            column.forEach(cell => {
+                if (cell.getDisc().getImg() != null && cell.getDisc().getImg().id == player){
+                    count ++;
+                }
+                else{
+                    count = 0;
+                }
+                if (count == discsToWin){
+                    hasWinner = true;
+                }
+            })
+        })
+        return hasWinner;
+    }
+
+    getDiagonals1(){
+        let diagonals = [];
+        let Ylength = this.cells.length;
+        let Xlength = this.cells[0].length;
+        let maxLength = Math.max(Xlength, Ylength);
+        let temp;
+        for (let k = 0; k <= 2 * (maxLength - 1); ++k) {
+            temp = [];
+            for (let y = Ylength - 1; y >= 0; --y) {
+                let x = k - y;
+                if (x >= 0 && x < Xlength) {
+                    temp.push(this.cells[y][x]);
+                }
+            }
+            if(temp.length > 0) {
+                diagonals.push(temp);
+            }
+        }
+        return diagonals;
+    }
+
+    getDiagonals2(){
+
+        let diagonals = [];
+        let Ylength = this.cells.length;
+        let Xlength = this.cells[0].length;
+        let maxLength = Math.max(Xlength, Ylength);
+        let temp;
+        for (let k = 0; k <= 2 * (maxLength - 1); ++k) {
+            temp = [];
+            for (let y = Ylength - 1; y >= 0; --y) {
+                var x = k - (Ylength - y);
+                if (x >= 0 && x < Xlength) {
+                    temp.push(this.cells[y][x]);
+                }
+            }
+            if(temp.length > 0) {
+                diagonals.push(temp);
+            }
+        }
+        return diagonals;
     }
 }
