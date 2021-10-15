@@ -123,8 +123,8 @@ function startGame(){
 }
 
 function restartGame(){
-    
-    btnRestart.classList.toggle('show');
+
+    btnRestart.classList.remove('show');
     spanDiscs.innerHTML = rangeDiscs.value + " en línea";
     discsToWin = Number(rangeDiscs.value); 
     board = new Board(discsToWin + 2 , discsToWin + 3, ctx);
@@ -140,6 +140,7 @@ function restartGame(){
     })
 
     msgSelectPlayer.innerHTML = 'Elegir jugador 1:';
+    msgWinPlayer.innerHTML = '';
 
     drawGameElements();
 }

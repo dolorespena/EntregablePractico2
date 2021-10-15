@@ -86,7 +86,6 @@ export default class Board {
             column.forEach(cell => {
                 if (cell.getDisc().getImg() != null && cell.getDisc().getImg().id == player){
                     count ++;
-                    console.log(count);
                 }
                 else{
                     count = 0;
