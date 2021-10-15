@@ -73,8 +73,8 @@ export default class Board {
     }
 
     isFourInLine(player, discsToWin){
-        return this.connect4Vertical(player,discsToWin);
-        //|| connect4Horizontal(player,discsToWin) ||connect4Diagonal1(player,discsToWin) ||connect4Diagonal2(player,discsToWin));   
+        return this.connect4Vertical(player,discsToWin) || this.connect4Horizontal(player,discsToWin);
+        // ||connect4Diagonal1(player,discsToWin) ||connect4Diagonal2(player,discsToWin));   
     }
 
     connect4Vertical(player, discsToWin){
@@ -98,8 +98,29 @@ export default class Board {
         return hasWinner;
     }
 
-    connect4Horizontal(player){
-        return false;
+    connect4Horizontal(player, discsToWin){
+
+        let count = 0;
+        let hasWinner = false;
+
+        console.log(this.cells)
+
+        for(let i = 0; i < this.cells[0].length; i ++){
+            count = 0;
+            for (let j = this.cells.length -1; j >= 0 ; j--){
+                if (this.cells[j][i].getDisc().getImg() != null && this.cells[j][i].getDisc().getImg().id == player){
+                    count ++;
+                }
+                else{
+                    count = 0;
+                }
+                if (count == discsToWin){
+                    hasWinner = true;
+                }
+            }
+        }
+         
+        return hasWinner;
     }
     
     connect4Diagonal1(player){
