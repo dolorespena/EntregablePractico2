@@ -4,14 +4,14 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
-#showCantDiscs, span{
+#showCantDiscs, span, #winnerPlayer p{
     color: white;
     margin: 15px;
     font-family: 'Luckiest Guy', cursive;
     text-transform: uppercase;
-    font-weight: bolder;
+    
     font-size: 50px;
-    text-shadow: 5px 5px 2px rgb(61, 61, 61);
+    text-shadow: 5px 5px 2px rgb(46, 45, 45);
     display: flex;
     justify-content: center;
 }
@@ -33,7 +33,7 @@ canvas#canvas{
     color: white;
     font-family: 'Luckiest Guy', cursive;
     font-size: 18px;
-    text-shadow: 2px 2px 2px rgb(61, 61, 61);
+    text-shadow: 2px 2px 2px rgb(46, 45, 45);
 }
 input {
     background: white;
@@ -50,10 +50,10 @@ input {
     border: 3px solid #2A66D4;
     border-radius: 50%;
 }
-#startGame{
+#startGame, #winnerPlayer button{
     color: white;
     font-size: 14px;
-    text-shadow: 2px 2px 2px rgb(32, 32, 32);
+    text-shadow: 2px 2px 2px rgb(46, 45, 45);
     font-family: 'Luckiest Guy', cursive;
     width: 130px;
     height: 40px;
@@ -70,7 +70,7 @@ input {
 }
 #range p{
     color: white;
-    text-shadow: 2px 2px 2px rgb(32, 32, 32);
+    text-shadow: 2px 2px 2px rgb(46, 45, 45);
     font-size: 14px;
     font-family: 'Luckiest Guy', cursive;
 }
@@ -98,4 +98,10 @@ footer p{
 }
 span{
     font-size: 35px;
+}
+#winnerPlayer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
