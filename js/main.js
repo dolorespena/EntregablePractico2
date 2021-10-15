@@ -9,7 +9,7 @@ let ctx = canvas.getContext("2d");
 
 let btnStart = document.getElementById("startGame");
 let btnRestart = document.getElementById("restartGame");
-
+let countdown = document.getElementById("countdown");
 let msgSelectPlayer = document.getElementById("selectPlayer");
 let msgWinPlayer = document.getElementById("winPlayer"); //Mensaje jugador ganador
 let rangeDiscs = document.getElementById("rangeDiscs"); //El selector de cantidad de fichas
@@ -36,7 +36,7 @@ imagesDisc.forEach(image => {
     image.addEventListener("click", setPlayer);
 })
 
-function setPlayer(evt){
+function setPlayer(evt){ // Seleccion de las fichas para cada jugador. Se anulan todos los botones una vez seleccionadas las fichas que van a jugar.
 
     let elementsWithClass = document.getElementsByClassName('borderP1').length + document.getElementsByClassName('borderP1').length;
     if (elementsWithClass == 2){
@@ -70,7 +70,7 @@ function removeListenerAllButtons(){
 
 rangeDiscs.addEventListener("change", restartGame)
 
-// Selección de ficha
+// Selección de ficha por el jugador de turno
 function onMouseDown(e){
     isMouseDown = true;
 
@@ -96,6 +96,8 @@ function onMouseUp(e){
     isMouseDown = false;
     drawGameElements();
 
+    console.log(grippeableDiscs);
+
     if(board.getThrowZone().isPointerInside(e.layerX, e.layerY) && lastClickedFigure != null){ // si la ficha está en la zona de tiro
         let img = lastClickedFigure.getImg();
         let throwX = board.getThrowZone().positionTrow(e.layerX);
@@ -108,21 +110,33 @@ function onMouseUp(e){
             grippeableDiscs = [];
             btnRestart.classList.toggle('show');
         }
+        else{
+            let actualDisc = grippeableDiscs.pop();// Elimina el ultimo elemento 
+            if(actualDisc.getDisc().getImg().id == cellP1.getDisc().getImg().id){
+                grippeableDiscs.push(cellP2);
+                
+            }else{
+                grippeableDiscs.push(cellP1);
+            }
+
+        }
     }
 }
 
-function startGame(){
-    grippeableDiscs.push(cellP1, cellP2);
+function startGame(){ //una vez seleccionado el boton de inicio de juego se le da comienzo a la jugada
+
+    grippeableDiscs.push(cellP1);
     btnStart.classList.toggle('show'); 
     msgSelectPlayer.innerHTML = '';
 
     canvas.addEventListener('mousedown', onMouseDown, false);
     canvas.addEventListener('mouseup', onMouseUp, false);
     canvas.addEventListener('mousemove', onMouseMove, false);
+    countdown.style.display = "block";
     timeDown();
 }
 
-function restartGame(){
+function restartGame(){ //Un vez obtenido el ganador, con esta funcion comienza una nueva partida
     btnStart.classList.remove('show'); 
     btnRestart.classList.remove('show');
     spanDiscs.innerHTML = rangeDiscs.value + " en línea";
@@ -143,11 +157,15 @@ function restartGame(){
     msgWinPlayer.innerHTML = '';
 
     drawGameElements();
+    clearInterval(timeInterval);
+    countdown.style.display = "none";
+
 }
 
-function isWinner(player, discsToWin){
+function isWinner(player, discsToWin){ // funcionalidad que define si hay ganador
     return board.isFourInLine(player, discsToWin);
 }
+
 
 function clearCanvas(){
     ctx.fillStyle = '#5C94FC';
@@ -171,26 +189,24 @@ function drawGameElements(){
     cellP1.print(ctx);
     cellP2.print(ctx);
 }
-
-
-
+//tiempo
 function timeDown(){
-    let span = document.getElementById("countdown");
-    let segundos = 300;
+    let segundos = 100;
+    
     let timeInterval = setInterval(run, 1000);
 
     function run(){
         if( segundos == 0){
             clearInterval(timeInterval);
-        }else if(cellP1.onMouseUp || cellP2.onMouseUp){
-            clearInterval(timeInterval);
-        }else{
+            alert("Se terminó el tiempo");
+            restartGame();
+            
+        }else {
             segundos--;
-            span.innerHTML =  segundos;
+            countdown.innerHTML =  segundos;
         }
     }
 }
-
 
 btnStart.addEventListener("click", startGame);
 btnRestart.addEventListener("click", restartGame);
