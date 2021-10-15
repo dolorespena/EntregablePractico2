@@ -123,7 +123,7 @@ function startGame(){
 }
 
 function restartGame(){
-
+    btnStart.classList.remove('show'); 
     btnRestart.classList.remove('show');
     spanDiscs.innerHTML = rangeDiscs.value + " en línea";
     discsToWin = Number(rangeDiscs.value); 

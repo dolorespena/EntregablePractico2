@@ -4,14 +4,14 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
-#showCantDiscs, span{
+#showCantDiscs, span, #winnerPlayer p{
     color: white;
     margin: 15px;
     font-family: 'Luckiest Guy', cursive;
     text-transform: uppercase;
     font-weight: bolder;
     font-size: 50px;
-    text-shadow: 5px 5px 2px rgb(61, 61, 61);
+    text-shadow: 5px 5px 2px rgb(46, 45, 45);
     display: flex;
     justify-content: center;
 }
@@ -98,4 +98,10 @@ footer p{
 }
 span{
     font-size: 35px;
+}
+#winnerPlayer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
